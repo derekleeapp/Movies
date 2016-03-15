@@ -8,3 +8,9 @@ extension NSRunLoop {
         mainRunLoop().runUntilDate(stopDate)
     }
 }
+
+extension String {
+    func utf8EncodedData() -> NSData {
+        return self.dataUsingEncoding(NSUTF8StringEncoding)!
+    }
+}

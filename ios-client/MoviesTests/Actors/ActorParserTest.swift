@@ -6,7 +6,7 @@ class ActorParserTest: XCTestCase {
     func test_parse_returnsActor() {
         let parser = ActorParser()
 
-        let result = parser.parse("{ \"name\": \"Joseph\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let result = parser.parse("{ \"name\": \"Joseph\" }".utf8EncodedData())
 
         XCTAssertEqual(result.value?.name, "Joseph")
     }
@@ -14,7 +14,7 @@ class ActorParserTest: XCTestCase {
     func test_parse_handlesInvalidJson() {
         let parser = ActorParser()
 
-        let result = parser.parse("{".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let result = parser.parse("{".utf8EncodedData())
 
         XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
@@ -22,7 +22,7 @@ class ActorParserTest: XCTestCase {
     func testActorsRepo_handlesInvalidValue() {
         let parser = ActorParser()
 
-        let result = parser.parse("{ \"name\": 12345 }".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let result = parser.parse("{ \"name\": 12345 }".utf8EncodedData())
 
         XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
@@ -30,7 +30,7 @@ class ActorParserTest: XCTestCase {
     func testActorsRepo_handlesInvalidKey() {
         let parser = ActorParser()
 
-        let result = parser.parse("{ \"id\": \"12345\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let result = parser.parse("{ \"id\": \"12345\" }".utf8EncodedData())
         
         XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
