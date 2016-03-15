@@ -13,7 +13,7 @@ class ActorsRepoTest: XCTestCase {
         XCTAssertEqual(fakeHttp.get_args, "/actors")
     }
 
-    func testActorsRepo_returnsActorName() {
+    func testActorsRepo_returnsActorList() {
         let fakeHttp = FakeHttp()
         let actorsRepo = ActorsRepo(http: fakeHttp)
 
@@ -23,17 +23,17 @@ class ActorsRepoTest: XCTestCase {
         let testExpectation = expectationWithDescription("")
 
 
-        var actualActor = Actor(name: "")
+        var actualActorList = ActorList(actors: [])
         actorsRepo.getAll()
             .onSuccess { value in
-                actualActor = value
+                actualActorList = value
                 testExpectation.fulfill()
             }
 
         promise.success("{ \"name\": \"Joseph\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
         waitForExpectationsWithTimeout(0.01, handler: nil)
 
-        XCTAssertEqual(actualActor.name, "Joseph")
+        XCTAssertEqual(actualActorList.actors.first?.name, "Joseph")
     }
 
     func testActorsRepo_mapsHttpErrorToRepoError() {
