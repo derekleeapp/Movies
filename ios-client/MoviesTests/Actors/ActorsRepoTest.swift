@@ -4,7 +4,7 @@ import BrightFutures
 
 class ActorsRepoTest: XCTestCase {
 
-    func testActorsRepo_hitsCorrectEndpoint() {
+    func test_getAll_hitsCorrectEndpoint() {
         let fakeHttp = FakeHttp()
         let actorsRepo = ActorsRepo(http: fakeHttp)
 
@@ -13,7 +13,7 @@ class ActorsRepoTest: XCTestCase {
         XCTAssertEqual(fakeHttp.get_args, "/actors")
     }
 
-    func testActorsRepo_returnsActorList() {
+    func test_getAll_returnsActorList() {
         let fakeHttp = FakeHttp()
         let actorsRepo = ActorsRepo(http: fakeHttp)
 
@@ -36,7 +36,7 @@ class ActorsRepoTest: XCTestCase {
         XCTAssertEqual(actualActorList.actors.first?.name, "Joseph")
     }
 
-    func testActorsRepo_mapsHttpErrorToRepoError() {
+    func test_getAll_mapsHttpErrorToRepoError() {
         let fakeHttp = FakeHttp()
         let actorsRepo = ActorsRepo(http: fakeHttp)
 
