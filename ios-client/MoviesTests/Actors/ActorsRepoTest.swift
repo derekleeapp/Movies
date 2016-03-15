@@ -1,4 +1,5 @@
 import XCTest
+import BrightFutures
 @testable import Movies
 
 class ActorsRepoTest: XCTestCase {
@@ -12,4 +13,25 @@ class ActorsRepoTest: XCTestCase {
         XCTAssertEqual(fakeHttp.get_args, "/actors")
     }
 
+    func testActorsRepo_returnsActorName() {
+        let fakeHttp = FakeHttp()
+
+        let actorsRepo = ActorsRepo(http: fakeHttp)
+
+        let promise = Promise<NSData, HttpError>()
+        fakeHttp.get_returnValue = promise.future
+
+        let testExpectation = expectationWithDescription("")
+
+        var actualActorName = ""
+        actorsRepo.getAll()
+            .onSuccess { value in
+                actualActorName = value
+                testExpectation.fulfill()
+            }
+
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+
+        XCTAssertEqual(actualActorName, "Joe")
+    }
 }
