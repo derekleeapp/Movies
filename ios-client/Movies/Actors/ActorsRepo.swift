@@ -1,5 +1,6 @@
 import BrightFutures
 import Foundation
+import Result
 
 struct Actor {
     var name: String
@@ -10,10 +11,13 @@ struct ActorsRepo {
 
     func getAll() -> Future<Actor, RepositoryError> {
         return http.get("/actors") // Future<NSData, HttpError>
-            .map { (actorNameData) -> Actor in
-                let actorDictionary = try! NSJSONSerialization.JSONObjectWithData(actorNameData, options: [])
+            .flatMap { (actorNameData) -> Result<Actor, HttpError> in
+                guard let actorDictionary = try? NSJSONSerialization.JSONObjectWithData(actorNameData, options: [])
+                else {
+                    return Result.Failure(HttpError.BadRequest)
+                }
                 let actorName = actorDictionary["name"] as! String
-                return Actor(name: actorName)
+                return Result.Success(Actor(name: actorName))
             }
             .mapError { _ in RepositoryError.FetchFailure }
     }

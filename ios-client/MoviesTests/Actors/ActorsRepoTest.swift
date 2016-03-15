@@ -57,4 +57,27 @@ class ActorsRepoTest: XCTestCase {
 
         XCTAssertEqual(actualError, RepositoryError.FetchFailure)
     }
+
+    func testActorsRepo_handlesInvalidJson() {
+        let fakeHttp = FakeHttp()
+        let actorsRepo = ActorsRepo(http: fakeHttp)
+
+        let promise = Promise<NSData, HttpError>()
+        fakeHttp.get_returnValue = promise.future
+
+        let testExpectation = expectationWithDescription("")
+
+
+        var actualError: RepositoryError?
+        actorsRepo.getAll()
+            .onFailure { error in
+                actualError = error
+                testExpectation.fulfill()
+            }
+
+        promise.success("{".dataUsingEncoding(NSUTF8StringEncoding)!)
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+
+        XCTAssertEqual(actualError, RepositoryError.FetchFailure)
+    }
 }
