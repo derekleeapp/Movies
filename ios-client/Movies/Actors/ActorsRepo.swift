@@ -13,15 +13,19 @@ struct ActorsRepo {
         return http.get("/actors") // Future<NSData, HttpError>
             .mapError { _ in RepositoryError.FetchFailure }
             .flatMap { (actorNameData) -> Result<Actor, RepositoryError> in
-                guard
-                    let json = try? NSJSONSerialization.JSONObjectWithData(actorNameData, options: []),
-                    let actorDictionary = json as? [String: String],
-                    let actorName = actorDictionary["name"]
-                else {
-                    return Result.Failure(RepositoryError.FetchFailure)
-                }
-
-                return Result.Success(Actor(name: actorName))
+                return self.parse(actorNameData)
             }
+    }
+
+    private func parse(data: NSData) -> Result<Actor, RepositoryError> {
+        guard
+            let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []),
+            let actorDictionary = json as? [String: String],
+            let actorName = actorDictionary["name"]
+            else {
+                return Result.Failure(RepositoryError.FetchFailure)
+        }
+
+        return Result.Success(Actor(name: actorName))
     }
 }
