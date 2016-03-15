@@ -34,6 +34,8 @@
 		AE1994581C6D9B6B00196A36 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1994571C6D9B6B00196A36 /* Result.framework */; };
 		AE1994591C6D9BA300196A36 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1994531C6D9A8100196A36 /* BrightFutures.framework */; };
 		AE19945A1C6D9BA300196A36 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1994571C6D9B6B00196A36 /* Result.framework */; };
+		AEEDBD611C97D3E4008FD962 /* ActorsRepoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEDBD601C97D3E4008FD962 /* ActorsRepoTest.swift */; };
+		AEEDBD641C97D4E6008FD962 /* ActorsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEDBD631C97D4E6008FD962 /* ActorsRepo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		AE1433891C6D5F50003297B9 /* MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE1994531C6D9A8100196A36 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
 		AE1994571C6D9B6B00196A36 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		AEEDBD601C97D3E4008FD962 /* ActorsRepoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorsRepoTest.swift; sourceTree = "<group>"; };
+		AEEDBD631C97D4E6008FD962 /* ActorsRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorsRepo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +203,7 @@
 		AE1433771C6D5F50003297B9 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
+				AEEDBD621C97D4DC008FD962 /* Actors */,
 				9D1A81371C8D927C00BB6264 /* Application */,
 				9D1A81381C8D927C00BB6264 /* Movies */,
 				9D1A81391C8D927C00BB6264 /* Network */,
@@ -209,11 +214,28 @@
 		AE14338C1C6D5F50003297B9 /* MoviesTests */ = {
 			isa = PBXGroup;
 			children = (
+				AEEDBD5F1C97D3D6008FD962 /* Actors */,
 				9D77B69D1C8D967B00148032 /* ApplicationTest */,
 				9D77B6931C8D967B00148032 /* Movies */,
 				9D77B6981C8D967B00148032 /* Network */,
 			);
 			path = MoviesTests;
+			sourceTree = "<group>";
+		};
+		AEEDBD5F1C97D3D6008FD962 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				AEEDBD601C97D3E4008FD962 /* ActorsRepoTest.swift */,
+			);
+			path = Actors;
+			sourceTree = "<group>";
+		};
+		AEEDBD621C97D4DC008FD962 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				AEEDBD631C97D4E6008FD962 /* ActorsRepo.swift */,
+			);
+			path = Actors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +363,7 @@
 				9D462E651C8D93C700D43273 /* main.swift in Sources */,
 				9DB285E51C8D941F005B1328 /* Movie.swift in Sources */,
 				9DB285E61C8D941F005B1328 /* MovieList.swift in Sources */,
+				AEEDBD641C97D4E6008FD962 /* ActorsRepo.swift in Sources */,
 				9DB285E71C8D941F005B1328 /* MovieListParser.swift in Sources */,
 				9DB285E81C8D941F005B1328 /* MovieParseError.swift in Sources */,
 				9DB285E91C8D941F005B1328 /* MovieParser.swift in Sources */,
@@ -355,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D77B6A81C8D967B00148032 /* ExtensionsForTest.swift in Sources */,
+				AEEDBD611C97D3E4008FD962 /* ActorsRepoTest.swift in Sources */,
 				9D77B6A41C8D967B00148032 /* FakeHttp.swift in Sources */,
 				9D77B6A01C8D967B00148032 /* FakeMovieRepository.swift in Sources */,
 				9D77B6A51C8D967B00148032 /* FakeSession.swift in Sources */,
