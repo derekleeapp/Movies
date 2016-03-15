@@ -22,12 +22,13 @@ struct ActorParser {
 
 struct ActorsRepo {
     let http: Http
+    let parser = ActorParser()
 
     func getAll() -> Future<Actor, RepositoryError> {
         return http.get("/actors") // Future<NSData, HttpError>
             .mapError { _ in RepositoryError.FetchFailure }
             .flatMap { (actorNameData) -> Result<Actor, RepositoryError> in
-                return ActorParser().parse(actorNameData)
+                return self.parser.parse(actorNameData)
             }
     }
 }
