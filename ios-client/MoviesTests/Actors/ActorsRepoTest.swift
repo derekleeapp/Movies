@@ -80,4 +80,50 @@ class ActorsRepoTest: XCTestCase {
 
         XCTAssertEqual(actualError, RepositoryError.FetchFailure)
     }
+
+    func testActorsRepo_handlesInvalidValue() {
+        let fakeHttp = FakeHttp()
+        let actorsRepo = ActorsRepo(http: fakeHttp)
+
+        let promise = Promise<NSData, HttpError>()
+        fakeHttp.get_returnValue = promise.future
+
+        let testExpectation = expectationWithDescription("")
+
+
+        var actualError: RepositoryError?
+        actorsRepo.getAll()
+            .onFailure { error in
+                actualError = error
+                testExpectation.fulfill()
+        }
+
+        promise.success("{ \"name\": 12345 }".dataUsingEncoding(NSUTF8StringEncoding)!)
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+
+        XCTAssertEqual(actualError, RepositoryError.FetchFailure)
+    }
+
+    func testActorsRepo_handlesInvalidKey() {
+        let fakeHttp = FakeHttp()
+        let actorsRepo = ActorsRepo(http: fakeHttp)
+
+        let promise = Promise<NSData, HttpError>()
+        fakeHttp.get_returnValue = promise.future
+
+        let testExpectation = expectationWithDescription("")
+
+
+        var actualError: RepositoryError?
+        actorsRepo.getAll()
+            .onFailure { error in
+                actualError = error
+                testExpectation.fulfill()
+        }
+
+        promise.success("{ \"id\": \"12345\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+
+        XCTAssertEqual(actualError, RepositoryError.FetchFailure)
+    }
 }
