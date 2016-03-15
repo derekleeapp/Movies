@@ -35,4 +35,26 @@ class ActorsRepoTest: XCTestCase {
 
         XCTAssertEqual(actualActorName, "Joseph")
     }
+
+    func testActorsRepo_mapsHttpErrorToRepoError() {
+        let fakeHttp = FakeHttp()
+        let actorsRepo = ActorsRepo(http: fakeHttp)
+
+        let promise = Promise<NSData, HttpError>()
+        fakeHttp.get_returnValue = promise.future
+
+        let testExpectation = expectationWithDescription("")
+
+        var actualError: RepositoryError?
+        actorsRepo.getAll()
+            .onFailure { error in
+                actualError = error
+                testExpectation.fulfill()
+        }
+
+        promise.failure(HttpError.BadRequest)
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+
+        XCTAssertEqual(actualError, RepositoryError.FetchFailure)
+    }
 }
