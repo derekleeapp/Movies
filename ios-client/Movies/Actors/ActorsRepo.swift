@@ -11,7 +11,8 @@ struct ActorsRepo {
     func getAll() -> Future<Actor, RepositoryError> {
         return http.get("/actors") // Future<NSData, HttpError>
             .map { (actorNameData) -> Actor in
-                let actorName = String(data: actorNameData, encoding: NSUTF8StringEncoding)!
+                let actorDictionary = try! NSJSONSerialization.JSONObjectWithData(actorNameData, options: [])
+                let actorName = actorDictionary["name"] as! String
                 return Actor(name: actorName)
             }
             .mapError { _ in RepositoryError.FetchFailure }

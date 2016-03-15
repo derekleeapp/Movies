@@ -30,7 +30,7 @@ class ActorsRepoTest: XCTestCase {
                 testExpectation.fulfill()
             }
 
-        promise.success("Joseph".dataUsingEncoding(NSUTF8StringEncoding)!)
+        promise.success("{ \"name\": \"Joseph\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
         waitForExpectationsWithTimeout(0.01, handler: nil)
 
         XCTAssertEqual(actualActor.name, "Joseph")
