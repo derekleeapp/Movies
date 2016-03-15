@@ -9,8 +9,6 @@ struct ActorsRepo {
             .map { (actorNameData) -> String in
                 return String(data: actorNameData, encoding: NSUTF8StringEncoding)!
             }
-            .mapError { error in
-                return RepositoryError.FetchFailure
-            }
+            .mapError { _ in RepositoryError.FetchFailure }
     }
 }
