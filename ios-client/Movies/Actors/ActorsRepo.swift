@@ -1,10 +1,16 @@
 import BrightFutures
+import Foundation
 
 struct ActorsRepo {
     let http: Http
 
     func getAll() -> Future<String, RepositoryError> {
-        http.get("/actors")
-        return Future<String, RepositoryError>(value: "Joe")
+        return http.get("/actors") // Future<NSData, HttpError>
+            .map { (actorNameData) -> String in
+                return String(data: actorNameData, encoding: NSUTF8StringEncoding)!
+            }
+            .mapError { error in
+                return RepositoryError.FetchFailure
+            }
     }
 }
