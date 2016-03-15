@@ -23,17 +23,17 @@ class ActorsRepoTest: XCTestCase {
         let testExpectation = expectationWithDescription("")
 
 
-        var actualActorName = ""
+        var actualActor = Actor(name: "")
         actorsRepo.getAll()
             .onSuccess { value in
-                actualActorName = value
+                actualActor = value
                 testExpectation.fulfill()
             }
 
         promise.success("Joseph".dataUsingEncoding(NSUTF8StringEncoding)!)
         waitForExpectationsWithTimeout(0.01, handler: nil)
 
-        XCTAssertEqual(actualActorName, "Joseph")
+        XCTAssertEqual(actualActor.name, "Joseph")
     }
 
     func testActorsRepo_mapsHttpErrorToRepoError() {
