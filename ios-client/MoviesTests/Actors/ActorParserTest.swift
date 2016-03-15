@@ -16,7 +16,7 @@ class ActorParserTest: XCTestCase {
 
         let result = parser.parse("{".dataUsingEncoding(NSUTF8StringEncoding)!)
 
-        XCTAssertEqual(result.error, RepositoryError.FetchFailure)
+        XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
 
     func testActorsRepo_handlesInvalidValue() {
@@ -24,7 +24,7 @@ class ActorParserTest: XCTestCase {
 
         let result = parser.parse("{ \"name\": 12345 }".dataUsingEncoding(NSUTF8StringEncoding)!)
 
-        XCTAssertEqual(result.error, RepositoryError.FetchFailure)
+        XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
 
     func testActorsRepo_handlesInvalidKey() {
@@ -32,7 +32,7 @@ class ActorParserTest: XCTestCase {
 
         let result = parser.parse("{ \"id\": \"12345\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
         
-        XCTAssertEqual(result.error, RepositoryError.FetchFailure)
+        XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
 
 }
