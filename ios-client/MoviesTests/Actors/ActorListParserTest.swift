@@ -40,4 +40,26 @@ class ActorListParserTest: XCTestCase {
         XCTAssertEqual(result.error, ActorParserError.MalformedData)
     }
 
+    func test_parseInvalidType_skipsInvalidActorJson() {
+        let parser = ActorListParser()
+
+        let actualActorList = parser.parse("{\"actors\":[{\"id\":\"one\",\"name\":\"Brad Pitt\"},{\"id\":2,\"name\":\"Sarah Silverman\"}]}".utf8EncodedData())
+
+        XCTAssertEqual(actualActorList.value!.actors.count, 1)
+
+        XCTAssertEqual(actualActorList.value!.actors.first?.id, 2)
+        XCTAssertEqual(actualActorList.value!.actors.first?.name, "Sarah Silverman")
+    }
+
+    func test_parseIncompleteActorJson_skipsIncompleteActorJson() {
+        let parser = ActorListParser()
+
+        let actualActorList = parser.parse("{\"actors\":[{\"id\":1,\"name\":\"Brad Pitt\"},{\"id\":2}]}".utf8EncodedData())
+
+        XCTAssertEqual(actualActorList.value!.actors.count, 1)
+
+        XCTAssertEqual(actualActorList.value!.actors.first?.id, 1)
+        XCTAssertEqual(actualActorList.value!.actors.first?.name, "Brad Pitt")
+    }
+    
 }

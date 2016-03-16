@@ -25,16 +25,15 @@ struct ActorListParser {
                 return Result.Failure(ActorParserError.MalformedData)
         }
 
-        var actorsArray: [Actor] = []
-        for actorJson in actorJsonArray {
+        let actorsArray: [Actor] = actorJsonArray.flatMap { actorJson in
             guard
                 let id = actorJson["id"] as? Int,
-                let name = actorJson["name"] as? String
-            else {
-                continue
+                let name = actorJson["name"] as? String else
+            {
+                return nil
             }
 
-            actorsArray.append(Actor(id: id, name: name))
+            return Actor(id: id, name: name)
         }
 
         return Result.Success(ActorList(actors: actorsArray))
