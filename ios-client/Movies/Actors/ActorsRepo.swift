@@ -3,6 +3,7 @@ import Foundation
 import Result
 
 struct Actor {
+    var id: Int
     var name: String
 }
 
@@ -18,15 +19,25 @@ struct ActorListParser {
     func parse(data: NSData) -> Result<ActorList, ActorParserError> {
         guard
             let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []),
-            let actorDictionary = json as? [String: String],
-            let actorName = actorDictionary["name"]
+            let actorListDictionary = json as? [String: AnyObject],
+            let actorJsonArray = actorListDictionary["actors"] as? [AnyObject]
             else {
                 return Result.Failure(ActorParserError.MalformedData)
         }
 
-        let actor = Actor(name: actorName)
+        var actorsArray: [Actor] = []
+        for actorJson in actorJsonArray {
+            guard
+                let id = actorJson["id"] as? Int,
+                let name = actorJson["name"] as? String
+            else {
+                continue
+            }
 
-        return Result.Success(ActorList(actors: [actor]))
+            actorsArray.append(Actor(id: id, name: name))
+        }
+
+        return Result.Success(ActorList(actors: actorsArray))
     }
 }
 

@@ -30,10 +30,12 @@ class ActorsRepoTest: XCTestCase {
                 testExpectation.fulfill()
             }
 
-        promise.success("{ \"name\": \"Joseph\" }".dataUsingEncoding(NSUTF8StringEncoding)!)
-        waitForExpectationsWithTimeout(0.01, handler: nil)
+        promise.success("{\"actors\":[{\"id\":1,\"name\":\"Brad Pitt\"},{\"id\":2,\"name\":\"Sarah Silverman\"}]}".dataUsingEncoding(NSUTF8StringEncoding)!)
+        waitForExpectationsWithTimeout(0.1, handler: nil)
 
-        XCTAssertEqual(actualActorList.actors.first?.name, "Joseph")
+        XCTAssertEqual(actualActorList.actors.count, 2)
+        XCTAssertEqual(actualActorList.actors.first?.name, "Brad Pitt")
+        XCTAssertEqual(actualActorList.actors.last?.name, "Sarah Silverman")
     }
 
     func test_getAll_mapsHttpErrorToRepoError() {

@@ -6,9 +6,14 @@ class ActorParserTest: XCTestCase {
     func test_parse_returnsActor() {
         let parser = ActorListParser()
 
-        let result = parser.parse("{ \"name\": \"Joseph\" }".utf8EncodedData())
+        let actualActorList = parser.parse("{\"actors\":[{\"id\":1,\"name\":\"Brad Pitt\"},{\"id\":2,\"name\":\"Sarah Silverman\"}]}".utf8EncodedData())
 
-        XCTAssertEqual(result.value?.actors.first?.name, "Joseph")
+        XCTAssertEqual(actualActorList.value!.actors.count, 2)
+        XCTAssertEqual(actualActorList.value!.actors.first?.id, 1)
+        XCTAssertEqual(actualActorList.value!.actors.first?.name, "Brad Pitt")
+
+        XCTAssertEqual(actualActorList.value!.actors.last?.id, 2)
+        XCTAssertEqual(actualActorList.value!.actors.last?.name, "Sarah Silverman")
     }
 
     func test_parse_handlesInvalidJson() {
