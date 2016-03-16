@@ -34,7 +34,7 @@
 		AE1994581C6D9B6B00196A36 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1994571C6D9B6B00196A36 /* Result.framework */; };
 		AE1994591C6D9BA300196A36 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1994531C6D9A8100196A36 /* BrightFutures.framework */; };
 		AE19945A1C6D9BA300196A36 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1994571C6D9B6B00196A36 /* Result.framework */; };
-		AEE233541C97F84D00520F7C /* ActorParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE233531C97F84D00520F7C /* ActorParserTest.swift */; };
+		AEE233541C97F84D00520F7C /* ActorListParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE233531C97F84D00520F7C /* ActorListParserTest.swift */; };
 		AEEDBD611C97D3E4008FD962 /* ActorsRepoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEDBD601C97D3E4008FD962 /* ActorsRepoTest.swift */; };
 		AEEDBD641C97D4E6008FD962 /* ActorsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEDBD631C97D4E6008FD962 /* ActorsRepo.swift */; };
 /* End PBXBuildFile section */
@@ -79,7 +79,7 @@
 		AE1433891C6D5F50003297B9 /* MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE1994531C6D9A8100196A36 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
 		AE1994571C6D9B6B00196A36 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
-		AEE233531C97F84D00520F7C /* ActorParserTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorParserTest.swift; sourceTree = "<group>"; };
+		AEE233531C97F84D00520F7C /* ActorListParserTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorListParserTest.swift; sourceTree = "<group>"; };
 		AEEDBD601C97D3E4008FD962 /* ActorsRepoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorsRepoTest.swift; sourceTree = "<group>"; };
 		AEEDBD631C97D4E6008FD962 /* ActorsRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorsRepo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -228,7 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				AEEDBD601C97D3E4008FD962 /* ActorsRepoTest.swift */,
-				AEE233531C97F84D00520F7C /* ActorParserTest.swift */,
+				AEE233531C97F84D00520F7C /* ActorListParserTest.swift */,
 			);
 			path = Actors;
 			sourceTree = "<group>";
@@ -389,7 +389,7 @@
 				9D77B6A21C8D967B00148032 /* MovieParserTest.swift in Sources */,
 				9D77B6A31C8D967B00148032 /* MovieViewControllerTest.swift in Sources */,
 				9D77B6A61C8D967B00148032 /* NetworkHttpTest.swift in Sources */,
-				AEE233541C97F84D00520F7C /* ActorParserTest.swift in Sources */,
+				AEE233541C97F84D00520F7C /* ActorListParserTest.swift in Sources */,
 				9D77B6A71C8D967B00148032 /* NetworkMovieRepositoryTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

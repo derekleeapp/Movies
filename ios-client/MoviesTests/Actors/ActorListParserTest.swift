@@ -1,7 +1,7 @@
 import XCTest
 @testable import Movies
 
-class ActorParserTest: XCTestCase {
+class ActorListParserTest: XCTestCase {
 
     func test_parse_returnsActor() {
         let parser = ActorListParser()
