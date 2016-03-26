@@ -26,17 +26,21 @@ struct ActorListParser {
         }
 
         let actorsArray: [Actor] = actorJsonArray.flatMap { actorJson in
-            guard
-                let id = actorJson["id"] as? Int,
-                let name = actorJson["name"] as? String else
-            {
-                return nil
-            }
-
-            return Actor(id: id, name: name)
+            return parseSingleActor(actorJson)
         }
 
         return Result.Success(ActorList(actors: actorsArray))
+    }
+
+    private func parseSingleActor(json: AnyObject) -> Actor? {
+        guard
+            let id = json["id"] as? Int,
+            let name = json["name"] as? String else
+        {
+            return nil
+        }
+
+        return Actor(id: id, name: name)
     }
 }
 
