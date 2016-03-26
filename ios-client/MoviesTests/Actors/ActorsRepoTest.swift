@@ -4,22 +4,24 @@ import BrightFutures
 
 class ActorsRepoTest: XCTestCase {
 
-    func test_getAll_hitsCorrectEndpoint() {
-        let fakeHttp = FakeHttp()
-        let actorsRepo = ActorsRepo(http: fakeHttp)
+    let fakeHttp = FakeHttp()
+    var actorsRepo: ActorsRepo!
+    var promise: Promise<NSData, HttpError>!
 
+    override func setUp() {
+        self.actorsRepo = ActorsRepo(http: fakeHttp)
+
+        self.promise = Promise<NSData, HttpError>()
+        self.fakeHttp.get_returnValue = promise.future
+    }
+
+    func test_getAll_hitsCorrectEndpoint() {
         actorsRepo.getAll()
 
         XCTAssertEqual(fakeHttp.get_args, "/actors")
     }
 
     func test_getAll_returnsActorList() {
-        let fakeHttp = FakeHttp()
-        let actorsRepo = ActorsRepo(http: fakeHttp)
-
-        let promise = Promise<NSData, HttpError>()
-        fakeHttp.get_returnValue = promise.future
-
         let testExpectation = expectationWithDescription("")
 
 
@@ -30,6 +32,7 @@ class ActorsRepoTest: XCTestCase {
                 testExpectation.fulfill()
             }
 
+
         promise.success("{\"actors\":[{\"id\":1,\"name\":\"Brad Pitt\"},{\"id\":2,\"name\":\"Sarah Silverman\"}]}".dataUsingEncoding(NSUTF8StringEncoding)!)
         waitForExpectationsWithTimeout(0.1, handler: nil)
 
@@ -39,12 +42,6 @@ class ActorsRepoTest: XCTestCase {
     }
 
     func test_getAll_mapsHttpErrorToRepoError() {
-        let fakeHttp = FakeHttp()
-        let actorsRepo = ActorsRepo(http: fakeHttp)
-
-        let promise = Promise<NSData, HttpError>()
-        fakeHttp.get_returnValue = promise.future
-
         let testExpectation = expectationWithDescription("")
 
         var actualError: RepositoryError?
